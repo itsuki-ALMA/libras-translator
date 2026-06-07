@@ -6,7 +6,6 @@ pasta_destino = f"dataset/raw_images/{LETRA}"
 
 os.makedirs(pasta_destino, exist_ok=True)
 
-# Conta quantas imagens já existem para continuar a numeração
 contador = len([f for f in os.listdir(pasta_destino) if f.endswith('.jpg')])
 
 cap = cv2.VideoCapture(0)
@@ -21,7 +20,6 @@ while True:
     if not ret:
         break
 
-    # Mostra instruções na tela
     cv2.putText(frame, f"Classe: {LETRA}", (20, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
     cv2.putText(frame, f"Amostras: {contador}", (20, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
     cv2.putText(frame, "Pressione 'S' para salvar", (20, 120), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 0), 2)
@@ -34,7 +32,6 @@ while True:
         break
     elif tecla == ord('s'):
         caminho_imagem = os.path.join(pasta_destino, f"{contador}.jpg")
-        # Salva o frame original sem as marcações verdes (a tela limpa)
         cv2.imwrite(caminho_imagem, frame)
         contador += 1
         print(f"Imagem salva: {caminho_imagem}")

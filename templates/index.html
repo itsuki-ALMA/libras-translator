@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="/static/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div class="container">
         <header>
@@ -55,7 +57,6 @@
     </div>
 
     <script>
-        // Tempo de confirmação definido no backend
         const TEMPO_CONFIRMACAO = 5;
 
         async function fetchStatus() {
@@ -63,31 +64,27 @@
                 const response = await fetch('/status');
                 const data = await response.json();
 
-                // Atualizar letra
                 document.getElementById('letra').innerText = data.letra;
-                
-                // Atualizar confiança
+
                 const confiancaPct = Math.round(data.confianca * 100);
                 document.getElementById('confianca-barra').style.width = `${confiancaPct}%`;
                 document.getElementById('confianca-texto').innerText = `${confiancaPct}%`;
 
-                // Atualizar tempo restante (barra decrescente)
                 const tempoRestante = Math.max(0, data.restante);
                 const tempoPct = (tempoRestante / TEMPO_CONFIRMACAO) * 100;
                 document.getElementById('tempo-barra').style.width = `${tempoPct}%`;
                 document.getElementById('tempo-texto').innerText = `${tempoRestante.toFixed(1)}s`;
 
-                // Atualizar texto e mensagem
                 document.getElementById('texto-atual').innerText = data.texto || '...';
                 document.getElementById('mensagem-enviada').innerText = data.mensagem || 'Nenhuma mensagem enviada ainda.';
-                
+
             } catch (error) {
                 console.error("Erro ao buscar status:", error);
             }
         }
 
-        // Atualiza a cada 200ms para uma interface mais reativa
         setInterval(fetchStatus, 200);
     </script>
 </body>
+
 </html>

@@ -22,10 +22,6 @@ templates = Jinja2Templates(
     directory="templates"
 )
 
-# -------------------------
-# ESTADO GLOBAL
-# -------------------------
-
 texto_atual = ""
 mensagem_enviada = ""
 
@@ -34,10 +30,6 @@ confianca_atual = 0
 tempo_restante = 0
 
 TEMPO_CONFIRMACAO = 5
-
-# -------------------------
-# RECONHECIMENTO COM YOLO
-# -------------------------
 
 def iniciar_reconhecimento():
 
@@ -49,8 +41,6 @@ def iniciar_reconhecimento():
 
     model_path = "model/best.pt"
     
-    # Aguarda o modelo existir para não dar erro abrupto de inicialização
-    # Isso ajuda caso o servidor rode antes do treinamento finalizar a exportação.
     while not os.path.exists(model_path):
         time.sleep(2)
         continue
@@ -68,7 +58,6 @@ def iniciar_reconhecimento():
         if not ret:
             continue
             
-        # Preditir a classe na imagem toda
         results = model.predict(frame, verbose=False)
         probs = results[0].probs
 
@@ -101,7 +90,6 @@ def iniciar_reconhecimento():
                         else:
                             texto_atual += letra
 
-                        # Reinicia para a proxima iteracao
                         inicio_predicao = agora
             else:
                 letra_atual = "-"
@@ -115,10 +103,6 @@ def iniciar_reconhecimento():
             ultima_letra = None
 
         time.sleep(0.03)
-
-# -------------------------
-# ROTAS
-# -------------------------
 
 @app.get("/")
 async def home(request: Request):
@@ -139,10 +123,6 @@ async def status():
             "restante": tempo_restante
         }
     )
-
-# -------------------------
-# STARTUP
-# -------------------------
 
 @app.on_event("startup")
 async def startup():

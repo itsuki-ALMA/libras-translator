@@ -7,6 +7,12 @@ def prepare_dataset():
     raw_dir = "dataset/raw_images"
     yolo_dir = "dataset_yolo"
     
+    if not os.path.exists(raw_dir):
+        print(f"Erro: A pasta {raw_dir} não existe!")
+        print("Você precisa primeiro coletar as imagens rodando: python scripts/collect_yolo_images.py")
+        import sys
+        sys.exit(1)
+    
     if os.path.exists(yolo_dir):
         shutil.rmtree(yolo_dir)
         
