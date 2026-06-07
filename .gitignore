@@ -1,0 +1,31 @@
+# Ambientes Virtuais
+venv/
+env/
+ENV/
+.venv/
+
+# Caches e Arquivos Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+
+# macOS / Linux / Windows auto-gerados
+.DS_Store
+Thumbs.db
+
+# Editores de Código e IDEs
+.vscode/
+.idea/
+
+# Pastas geradas durante o script de treinamento
+dataset_yolo/
+runs/
+dataset/
+
+# Arquivos de configurações sensíveis
+.env
